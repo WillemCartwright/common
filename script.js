@@ -24,11 +24,7 @@ const newTopicInputI = document.getElementById('newTopicInputI');
 // State
 let mode = 'questions';
 let page = 0;
-let topics = {
-  "Unity": 3,
-  "Blender": 2,
-  "Coding": 5
-};
+let topics = {};
 let questions = [];
 let info = [];
 
@@ -40,16 +36,20 @@ function makeInfo(id, topic, author, title, text){
   return { id, topic, author, age: "just now", title, text };
 }
 
-// Seed
-questions = [
-  makeQuestion(1, "Unity", "Mila", "How do I fix physics jittering in Unity?"),
-  makeQuestion(2, "Blender", "Andrei", "Best way to bake textures for export?"),
-  makeQuestion(3, "Coding", "Lina", "How to implement infinite scroll in vanilla JS?")
-];
-info = [
-  makeInfo(1, "Unity", "Sam", "Physics Update", "Use FixedUpdate for physics code to ensure stability."),
-  makeInfo(2, "Blender", "Alex", "Export Tips", "Always check scale and normals before exporting models.")
-];
+// Local Storage
+function saveData(){
+  localStorage.setItem('questions', JSON.stringify(questions));
+  localStorage.setItem('info', JSON.stringify(info));
+  localStorage.setItem('topics', JSON.stringify(topics));
+}
+function loadData(){
+  const qs = localStorage.getItem('questions');
+  const inf = localStorage.getItem('info');
+  const tps = localStorage.getItem('topics');
+  questions = qs ? JSON.parse(qs) : [];
+  info = inf ? JSON.parse(inf) : [];
+  topics = tps ? JSON.parse(tps) : {"Unity":3,"Blender":2,"Coding":5};
+}
 
 // Render
 function render(resetCount=true){
@@ -57,7 +57,7 @@ function render(resetCount=true){
   let list = mode === 'questions' ? questions : info;
   list = list.filter(p => !q || (p.title + p.topic + p.author).toLowerCase().includes(q));
 
-  if (resetCount) resultCount.textContent = `${list.length} result${list.length!==1?'s':''}`;
+  if (resetCount) resultCount.textContent = ⁠ ${list.length} result${list.length!==1?'s':''} ⁠;
   feedEl.innerHTML = list.map(Post).join('');
   bindHandlers();
   renderTopics();
@@ -77,7 +77,7 @@ function Post(p){
         <span class="score-chip">${p.answers.length} answers</span>
       </div>
       <div class="answers">
-        ${p.answers.map(a=>`<div class="answer"><b>${a.author}:</b> ${a.text}</div>`).join('')}
+        ${p.answers.map(a=>⁠ <div class="answer"><b>${a.author}:</b> ${a.text}</div> ⁠).join('')}
       </div>
     </article>`;
   } else {
@@ -102,6 +102,7 @@ function bindHandlers(){
       const answer = prompt("Your answer:");
       if(answer){
         q.answers.push({author:"You", text:answer});
+        saveData();
         render(false);
       }
     };
@@ -142,6 +143,7 @@ document.getElementById('submitQuestion').onclick=()=>{
   topics[topic]++;
   const id=Date.now();
   questions.unshift(makeQuestion(id, topic, "You", title));
+  saveData();
   closeModal(questionModal);
   questionTitle.value="";
   newTopicInputQ.value="";
@@ -160,6 +162,7 @@ document.getElementById('submitInfo').onclick=()=>{
   topics[topic]++;
   const id=Date.now();
   info.unshift(makeInfo(id, topic, "You", title, text));
+  saveData();
   closeModal(infoModal);
   infoTitle.value="";
   infoText.value="";
@@ -172,17 +175,18 @@ document.getElementById('submitTopic').onclick=()=>{
   const topic=document.getElementById('topicName').value.trim();
   if(!topic) return;
   if(!topics[topic]) topics[topic]=0;
+  saveData();
   closeModal(topicModal);
   renderTopics();
 };
 
 /* Render topics as tag cloud */
 function renderTopics(){
-  questionTopic.innerHTML = Object.keys(topics).map(t=>`<option value="${t}">${t}</option>`).join('');
+  questionTopic.innerHTML = Object.keys(topics).map(t=>⁠ <option value="${t}">${t}</option> ⁠).join('');
   infoTopic.innerHTML = questionTopic.innerHTML;
   topicList.innerHTML = Object.entries(topics)
     .sort((a,b)=>b[1]-a[1])
-    .map(([t,c])=>`<li style="font-size:${14+c*4}px">${t}</li>`).join('');
+    .map(([t,c])=>⁠ <li style="font-size:${14+c*4}px">${t}</li> ⁠).join('');
 }
 
 /* Infinite scroll stub */
@@ -191,5 +195,8 @@ const io = new IntersectionObserver((entries)=>{ if(entries[0].isIntersecting) l
 io.observe(sentinel);
 
 /* Boot */
-function init(){ render(); }
+function init(){ 
+  loadData();
+  render(); 
+}
 init();
