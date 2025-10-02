@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Help Documentation</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Header -->
+  <header class="topbar">
+    <div class="logo">
+      <span class="brand">Help Documentation</span>
+    </div>
+
+    <div class="search">
+      <input id="searchInput" placeholder="Search questions, topics..." />
+      <kbd class="kbd">/</kbd>
+    </div>
+
+    <nav class="head-actions">
+      <button class="text-btn" id="newQuestionBtn">Ask Question</button>
+      <button class="text-btn" id="newInfoBtn">Add Info</button>
+      <button class="text-btn" id="newTopicBtn">Add Topic</button>
+      <span class="user-pill">You</span>
+    </nav>
+  </header>
+
+  <div class="page">
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar">
+      <div class="section-title">Popular Topics</div>
+      <ul class="topics" id="topicList"></ul>
+    </aside>
+
+    <!-- MAIN FEED -->
+    <main class="feed-col">
+      <div class="tabs">
+        <button class="tab active" data-mode="questions">Questions</button>
+        <button class="tab" data-mode="info">Info</button>
+        <span class="pill soft" id="resultCount">0 results</span>
+      </div>
+
+      <div id="feed" class="feed"></div>
+      <div id="sentinel" class="sentinel" aria-hidden="true">Loading more…</div>
+
+      <footer class="site-links">
+        <a>Rules</a> · <a>Privacy</a> · <a>User Agreement</a> · <a>Accessibility</a>
+        <div class="copy">Help Documentation © 2025.</div>
+      </footer>
+    </main>
+  </div>
+
+  <!-- Question Modal -->
+  <div class="modal hidden" id="questionModal">
+    <div class="modal-content">
+      <h2>Ask a Question</h2>
+      <label>Title</label>
+      <input id="questionTitle" type="text" placeholder="Enter your question..." />
+      <label>Topic</label>
+      <select id="questionTopic"></select>
+      <input id="newTopicInputQ" type="text" placeholder="Or add a new topic..." />
+      <div class="modal-actions">
+        <button class="text-btn" id="submitQuestion">Submit</button>
+        <button class="text-btn cancel" id="closeQuestionModal">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Info Modal -->
+  <div class="modal hidden" id="infoModal">
+    <div class="modal-content">
+      <h2>Add Information</h2>
+      <label>Title</label>
+      <input id="infoTitle" type="text" placeholder="Title of your info..." />
+      <label>Content</label>
+      <textarea id="infoText" placeholder="Write your information..." rows="5"></textarea>
+      <label>Topic</label>
+      <select id="infoTopic"></select>
+      <input id="newTopicInputI" type="text" placeholder="Or add a new topic..." />
+      <div class="modal-actions">
+        <button class="text-btn" id="submitInfo">Submit</button>
+        <button class="text-btn cancel" id="closeInfoModal">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Topic Modal -->
+  <div class="modal hidden" id="topicModal">
+    <div class="modal-content">
+      <h2>Add a Topic</h2>
+      <input id="topicName" type="text" placeholder="Enter topic name..." />
+      <div class="modal-actions">
+        <button class="text-btn" id="submitTopic">Add</button>
+        <button class="text-btn cancel" id="closeTopicModal">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
