@@ -7,10 +7,11 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
   <!-- Header -->
   <header class="topbar">
     <div class="logo">
-      <span class="brand">Help Documentation</span>
+      <span class="brand">CMD Student Hub</span>
     </div>
 
     <div class="search">
@@ -18,19 +19,24 @@
       <kbd class="kbd">/</kbd>
     </div>
 
-    <nav class="head-actions">
-      <button class="text-btn" id="newQuestionBtn">Ask Question</button>
-      <button class="text-btn" id="newInfoBtn">Add Info</button>
-      <button class="text-btn" id="newTopicBtn">Add Topic</button>
+    <div class="head-actions header-only">
       <span class="user-pill">You</span>
-    </nav>
+    </div>
   </header>
-
+  
   <div class="page">
     <!-- LEFT SIDEBAR -->
     <aside class="sidebar">
       <div class="section-title">Popular Topics</div>
       <ul class="topics" id="topicList"></ul>
+
+      <!-- Knoppen onder topics -->
+      
+      <div class="sidebar-actions">
+        <button class="text-btn" id="newQuestionBtn">Ask Question</button>
+        <button class="text-btn secondary" id="newInfoBtn">Add Info</button>
+        <button class="text-btn secondary" id="newTopicBtn">Add Topic</button>
+      </div>
     </aside>
 
     <!-- MAIN FEED -->
@@ -46,12 +52,12 @@
 
       <footer class="site-links">
         <a>Rules</a> · <a>Privacy</a> · <a>User Agreement</a> · <a>Accessibility</a>
-        <div class="copy">Help Documentation ©️ 2025.</div>
+        <div class="copy">Help Documentation © 2025.</div>
       </footer>
     </main>
   </div>
 
-  <!-- Question Modal -->
+  <!-- Modals (ongewijzigd) -->
   <div class="modal hidden" id="questionModal">
     <div class="modal-content">
       <h2>Ask a Question</h2>
@@ -67,7 +73,6 @@
     </div>
   </div>
 
-  <!-- Info Modal -->
   <div class="modal hidden" id="infoModal">
     <div class="modal-content">
       <h2>Add Information</h2>
@@ -85,7 +90,6 @@
     </div>
   </div>
 
-  <!-- Topic Modal -->
   <div class="modal hidden" id="topicModal">
     <div class="modal-content">
       <h2>Add a Topic</h2>
@@ -93,6 +97,17 @@
       <div class="modal-actions">
         <button class="text-btn" id="submitTopic">Add</button>
         <button class="text-btn cancel" id="closeTopicModal">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal hidden" id="answerModal">
+    <div class="modal-content">
+      <h2>Write an Answer</h2>
+      <textarea id="answerText" placeholder="Type your answer here..." rows="5"></textarea>
+      <div class="modal-actions">
+        <button class="text-btn" id="submitAnswer">Submit</button>
+        <button class="text-btn cancel" id="closeAnswerModal">Cancel</button>
       </div>
     </div>
   </div>
