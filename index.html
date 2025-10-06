@@ -3,39 +3,36 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Help Documentation</title>
+  <title>CMD Student Hub</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
   <!-- Header -->
   <header class="topbar">
     <div class="logo">
       <span class="brand">CMD Student Hub</span>
     </div>
-
     <div class="search">
       <input id="searchInput" placeholder="Search questions, topics..." />
       <kbd class="kbd">/</kbd>
     </div>
-
     <div class="head-actions header-only">
       <span class="user-pill">You</span>
+      <span class="credit-pill" id="creditCount">💰 3</span>
     </div>
   </header>
-  
+
   <div class="page">
     <!-- LEFT SIDEBAR -->
     <aside class="sidebar">
-      <div class="section-title">Popular Topics</div>
-      <ul class="topics" id="topicList"></ul>
-
-      <!-- Knoppen onder topics -->
-      
       <div class="sidebar-actions">
         <button class="text-btn" id="newQuestionBtn">Ask Question</button>
         <button class="text-btn secondary" id="newInfoBtn">Add Info</button>
         <button class="text-btn secondary" id="newTopicBtn">Add Topic</button>
+      </div>
+      <div class="topics-container">
+        <div class="section-title">Popular Topics</div>
+        <ul class="topics" id="topicList"></ul>
       </div>
     </aside>
 
@@ -57,7 +54,7 @@
     </main>
   </div>
 
-  <!-- Modals (ongewijzigd) -->
+  <!-- Modals -->
   <div class="modal hidden" id="questionModal">
     <div class="modal-content">
       <h2>Ask a Question</h2>
@@ -108,6 +105,17 @@
       <div class="modal-actions">
         <button class="text-btn" id="submitAnswer">Submit</button>
         <button class="text-btn cancel" id="closeAnswerModal">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Credit popup -->
+  <div class="modal hidden" id="credit-popup">
+    <div class="modal-content">
+      <h2>Not enough credits</h2>
+      <p>You don’t have enough credits to view this answer.</p>
+      <div class="modal-actions">
+        <button class="text-btn" id="popup-ok">OK</button>
       </div>
     </div>
   </div>
